@@ -63,7 +63,8 @@ ROOT_URLCONF = 'plants_website.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates/core/'],
+        'DIRS': [BASE_DIR / 'templates/core/',
+                 BASE_DIR / 'templates/users/'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -122,12 +123,13 @@ USE_L10N = True
 
 USE_TZ = True
 
-# Custom User model
+# Custom User model and authentication parameters
 AUTH_USER_MODEL = 'users.CustomUser'
+LOGIN_URL = "accounts/login/"
+LOGIN_REDIRECT_URL = "/index/"
+LOGOUT_REDIRECT_URL = "/"
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
-
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / "static"]
-
