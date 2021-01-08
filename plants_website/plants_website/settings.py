@@ -42,6 +42,7 @@ INSTALLED_APPS = [
 
     # Extra management apps
     'decouple',
+    'crispy_forms',
 
     # Custom apps
     'core',
@@ -133,3 +134,6 @@ LOGOUT_REDIRECT_URL = "/"
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / "static"]
+
+# Crispy Forms parameters
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

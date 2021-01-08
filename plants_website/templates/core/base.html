@@ -1,95 +1,78 @@
-{% load static %}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'css/bulma.css' %}">
-    <script src="{% static 'js/bulma.js' %}"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     {% block style %}
-
     {% endblock style %}
     <title>Plants & Flowers {% block title %}{% endblock title %}</title>
 </head>
 <body>
-    <div class="container is-max-desktop">
-        <nav class="navbar" role="navigation" aria-label="main navigation">
-            <div class="navbar-brand">
-              <a class="navbar-item" href="{% url 'homepage' %}">
-                <img src="{% static 'img/logo.png' %}" width="112" height="28">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-success">
+    <div class="container">
+      <a class="navbar-brand" href="{% url 'homepage' %}">Plants&Flowers</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="{% url 'homepage' %}">Home</a>
+          </li>
+          {% if request.user.is_authenticated %}
+            <li class="nav-item active">
+              <a class="nav-link" href="{% url 'index' %}">Index</a>
+            </li>
+          {% endif %}
+          <li class="nav-item active">
+            <a class="nav-link" href="{% url 'about' %}">About</a>
+          </li>
+          <li class="nav-item active dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              API
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="#">Authentication and registration
               </a>
-          
-              <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-                <span aria-hidden="true"></span>
-                <span aria-hidden="true"></span>
-                <span aria-hidden="true"></span>
-              </a>
+              <a class="dropdown-item" href="#">Contact</a>
+              <a class="dropdown-item" href="#">Flowers and plants</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#">Report an issue</a>
             </div>
-          
-            <div id="navbarBasicExample" class="navbar-menu">
-              <div class="navbar-start">
-                <a class="navbar-item" href="{% url 'homepage' %}">
-                    Home
-                </a>
-                {% if request.user.is_authenticated %}
-                <a class="navbar-item" href="{% url 'index' %}">
-                    Index
-                </a>
-                {% endif %}  
-                <a class="navbar-item" href="{% url 'about' %}">
-                    About
-                </a>
-                <div class="navbar-item has-dropdown is-hoverable">
-                    <a class="navbar-link">
-                        APIs
-                    </a>
-                    <div class="navbar-dropdown">
-                        <a class="navbar-item">
-                            Authentication and registration
-                        </a>
-                        <a class="navbar-item">
-                            Contact
-                        </a>
-                        <a class="navbar-item">
-                            Flowers and plants
-                        </a>
-                        <hr class="navbar-divider">
-                        <a class="navbar-item">
-                            Report an issue
-                        </a>
-                  </div>
-                </div>
-              </div>
-          
-              <div class="navbar-end">
-                <div class="navbar-item">
-                  <div class="buttons">
-                    
-                    {% if request.user.is_authenticated %}
-                    <a class="button is-primary" href="{% url 'logout' %}">
-                      <strong>Logout</strong>
-                    </a>
-                    <a class="button is-light">
-                      Hello, {{ request.user }}
-                    </a>
-                      
-                    {% else %}
-                    <a class="button is-primary">
-                      <strong>Sign up</strong>
-                    </a>
-                    <a class="button is-light" href="{% url 'login' %}">
-                      Log in
-                    </a>
-                    {% endif %}  
-            </div>
-        </nav>
+          </li>
+        </ul>
+        <ul class="navbar-nav">
+          {% if request.user.is_authenticated %}
+          <a class="btn btn-secondary" href="{% url 'logout' %}">
+            <strong>Logout</strong>
+          </a>
+          <a class="btn btn-secondary ml-1">
+            <strong>Hello, {{ request.user }}</strong>
+          </a> 
+          {% else %}
+          <a class="btn btn-secondary">
+            <strong>Sign up</strong>
+          </a>
+          <a class="btn btn-secondary ml-1" href="{% url 'login' %}">
+            <strong>Login</strong>
+          </a>
+          {% endif %}  
+        </ul>
+      </div>
     </div>
-    <div class="container is-max-desktop">
+  </nav>
 
-      {% block content %}
-      
-      {% endblock content %}
-    </div>
+  <div class="container">
+    {% block content %}
+    
+    {% endblock content %}
+  </div>
+  
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 </body>
 </html>
